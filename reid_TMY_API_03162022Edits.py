@@ -14,13 +14,13 @@ get_ipython().magic('reset -sf')
 import pandas as pd
 import sys
 import requests
-from tqdm import tqdm
 import datetime
+from tqdm import tqdm
 begin_time = datetime.datetime.now()
 
 #%% Import Inputs Spreadsheet
 
-xslx_path = "/Users/bradenlimb/CloudStation/GitHub/Europa-TMY-API/inputs.xlsx"  # Input spreadsheet path
+xslx_path = "U:/CEA Project/NewWeather/inputs.xlsx"  # Input spreadsheet path
 df_inputs = pd.read_excel (xslx_path)           # Read the inputs spreadsheet as a Panda's data frame
 column_names = df_inputs.columns.tolist()                # Extract all of the column names for the parameters
 column_names.remove("FileName")
@@ -47,11 +47,10 @@ for i in tqdm(range(len(df_inputs))):                 # Loop through all of the 
         if j < len(column_names)-1:
             url = url+separator                 # If there are more parameters to add then add the separator
     output = requests.get(url)              # Call the url to get the data from the API
-    with open(f'{filenames[i]}.epw','w',newline='') as f:         # Write the text recived to a epw file
+    with open(f'{filenames[i]}','w',newline="") as f:         # Write the text recived to a epw file
         f.write(output.text)
         f.close()
     
-#%% End of Code
-execute_time = datetime.datetime.now() - begin_time
-# print('Code execution time: ', execute_time) 
+    
+    
 
